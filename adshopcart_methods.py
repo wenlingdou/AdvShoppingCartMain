@@ -14,16 +14,10 @@ driver = webdriver.Chrome(service=s)
 def setUp():
     print(f'*--------------------------------------------------*')
     print(f'Test start at: {datetime.datetime.now()}')
-
-    # make browser full screen
     driver.maximize_window()
-    # give browser up to 30 seconds to respond
     driver.implicitly_wait(30)
-
-    # navigate to website
     driver.get(locators.adshopcart_url)
 
-    # check  URL and home page title are as expected
     if driver.current_url == locators.adshopcart_url and locators.adshopcart_homepage_title in driver.title:
         print(f'{locators.app} website launched successfully!')
         print(f'{locators.app} Homepage URL: {driver.current_url}, Homepage title: {driver.title}')
@@ -79,7 +73,7 @@ def register():
         driver.find_element(By.NAME, 'postal_codeRegisterPage').send_keys(locators.postalcode)
         sleep(0.25)
         driver.find_element(By.NAME, 'i_agree').click()
-        sleep(0.25)
+        sleep(0.5)
         driver.find_element(By.ID, 'register_btnundefined').click()
         sleep(1.5)
 
@@ -125,48 +119,27 @@ def login():
         driver.find_element(By.NAME, 'password').send_keys(locators.password)
         sleep(0.25)
         driver.find_element(By.ID, 'sign_in_btnundefined').click()
-        sleep(0.25)
-    #
-    # if driver.find_element(By.XPATH, '//label[contains(., "Incorrect user name or password.")]').is_displayed():
-    #     sleep(0.5)
-    #     print(f'Incorrect user name or password. Username: {locators.username} was not exsiting.')
-    # else:
-        print('-----------LOGIN SUCCESSFULLY----------')
-
+        sleep(0.5)
 
 def delete_account():
     driver.find_element(By.ID, 'menuUser').click()
     sleep(0.5)
     print(f'--------Username: {locators.username}------')
     driver.find_element(By.XPATH, '//*[@id="loginMiniTitle"]/label[1]').click()
-    sleep(0.5)
+    sleep(1.5)
     driver.find_element(By.CLASS_NAME, 'deleteBtnText').click()
     sleep(1.5)
     print('----------DELETE ACCOUNT------------')
     driver.find_element(By.XPATH, '//*[@id="deleteAccountPopup"]/div[3]/div[1]').click()
     sleep(5)
-    # driver.implicitly_wait(5)
 
 # validate deletion new user
 def check_delete():
-    #driver.get(locators.adshopcart_url)
-    if driver.current_url == locators.adshopcart_url:
-        print('------------VALIDATE DELETION-----------')
-    driver.find_element(By.ID, 'menuUser').click()
-    sleep(2.5)
-    driver.find_element(By.NAME, 'username').send_keys(locators.username)
-    sleep(0.5)
-    driver.find_element(By.NAME, 'password').send_keys(locators.password)
-    sleep(0.5)
-    driver.find_element(By.ID, 'sign_in_btnundefined').click()
-    sleep(0.25)
-    if driver.find_element(By.ID, 'signInResultMessage').is_displayed():   # and \
-            #driver.find_element(By.XPATH, '//label[contains(., "Incorrect user name or password.")]').is_displayed():
-        sleep(0.25)
-        print(f'Incorrect user name or password. Username: {locators.username} does not exsit.')
+    if driver.find_element(By.XPATH, '//label[contains(., "Incorrect user name or password.")]').is_displayed():
+        sleep(0.5)
+        print(f'Incorrect user name or password. Username: {locators.username} was not exsiting.')
     else:
-        print('Please check your code.')
-
+        print('Something went wrong. Please check your code.')
 
 
 # setUp()
@@ -177,5 +150,6 @@ def check_delete():
 # logout()
 # login()
 # delete_account()
+# login()
 # check_delete()
 # tearDown()
