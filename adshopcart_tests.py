@@ -14,5 +14,6 @@ class PositiveTestCases(unittest.TestCase):
         methods.logout()
         methods.login()
         methods.delete_account()
+        methods.login()
         methods.check_delete()
         methods.tearDown()
