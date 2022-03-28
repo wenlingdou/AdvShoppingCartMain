@@ -81,7 +81,7 @@ def register():
         driver.find_element(By.NAME, 'i_agree').click()
         sleep(0.25)
         driver.find_element(By.ID, 'register_btnundefined').click()
-        sleep(0.5)
+        sleep(1.5)
 
 def check_fullname():
     if driver.current_url == locators.adshopcart_url:
@@ -141,30 +141,31 @@ def delete_account():
     driver.find_element(By.XPATH, '//*[@id="loginMiniTitle"]/label[1]').click()
     sleep(0.5)
     driver.find_element(By.CLASS_NAME, 'deleteBtnText').click()
-    sleep(0.5)
+    sleep(1.5)
     print('----------DELETE ACCOUNT------------')
     driver.find_element(By.XPATH, '//*[@id="deleteAccountPopup"]/div[3]/div[1]').click()
-    sleep(0.5)
-    driver.implicitly_wait(5)
+    sleep(5)
+    # driver.implicitly_wait(5)
 
 # validate deletion new user
 def check_delete():
+    #driver.get(locators.adshopcart_url)
     if driver.current_url == locators.adshopcart_url:
         print('------------VALIDATE DELETION-----------')
-        driver.find_element(By.ID, 'menuUser').click()
-        sleep(2.5)
-        driver.find_element(By.NAME, 'username').send_keys(locators.username)
-        sleep(0.5)
-        driver.find_element(By.NAME, 'password').send_keys(locators.password)
-        sleep(0.5)
-        driver.find_element(By.ID, 'sign_in_btnundefined').click()
+    driver.find_element(By.ID, 'menuUser').click()
+    sleep(2.5)
+    driver.find_element(By.NAME, 'username').send_keys(locators.username)
+    sleep(0.5)
+    driver.find_element(By.NAME, 'password').send_keys(locators.password)
+    sleep(0.5)
+    driver.find_element(By.ID, 'sign_in_btnundefined').click()
+    sleep(0.25)
+    if driver.find_element(By.ID, 'signInResultMessage').is_displayed():   # and \
+            #driver.find_element(By.XPATH, '//label[contains(., "Incorrect user name or password.")]').is_displayed():
         sleep(0.25)
-        if driver.find_element(By.ID, 'signInResultMessage').is_displayed():   # and \
-                #driver.find_element(By.XPATH, '//label[contains(., "Incorrect user name or password.")]').is_displayed():
-            sleep(0.25)
-            print(f'Incorrect user name or password. Username: {locators.username} does not exsit.')
-        else:
-            print('Please check your code.')
+        print(f'Incorrect user name or password. Username: {locators.username} does not exsit.')
+    else:
+        print('Please check your code.')
 
 
 
