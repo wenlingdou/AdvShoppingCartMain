@@ -30,11 +30,74 @@ def setUp():
 
 def tearDown():
     if driver is not None:
-        print('*-----------------------------------*')
+        print('*--------------The test is passed.-------------------------*')
         print(f'The test is completed at: {datetime.datetime.now()}')
+
         sleep(0.5)
         driver.close()
         driver.quit()
+
+def check_homepage():
+    if driver.current_url == locators.adshopcart_url and locators.adshopcart_homepage_title in driver.title:
+        print(f'--------CHECK HOME PAGE------------------')
+
+        for i in range(len(locators.lst_items)):
+            item, item_id = locators.lst_items[i], locators.lst_id[i]
+            driver.find_element(By.ID, item_id).is_displayed()
+            sleep(0.5)
+        print(f'{locators.lst_items} is displayed.')
+
+        # checking SPECIAL OFFER, POPULAR ITEMS, CONTACT US are clickable
+
+        # for x in range(len(locators.lst_link)):
+        #     link_name, link_id = locators.lst_link[x], locators.lst_link_id[x]
+        #     driver.find_element(By.XPATH, '//a[contains(., link_name)]').click()
+        #     sleep(0.75)
+        #     driver.find_element(By.ID, link_id).is_displayed()
+        #     sleep(0.5)
+        #     print(f'{link_name} is clickable.')
+        #
+        driver.find_element(By.XPATH, '//a[contains(., "SPECIAL OFFER")]').click()
+        sleep(0.5)
+        driver.find_element(By.ID, 'special_offer_items').is_displayed()
+        sleep(0.5)
+        print('SPECIAL OFFER is clickable.')
+        driver.find_element(By.XPATH, '//a[contains(., "POPULAR ITEMS")]').click()
+        sleep(0.5)
+        driver.find_element(By.ID, 'popular_items').is_displayed()
+        sleep(0.5)
+        print('POPULAR ITEMS is clickable.')
+        driver.find_element(By.XPATH, '//a[contains(., "CONTACT US")]').click()
+        sleep(0.5)
+        driver.find_element(By.ID, 'supportCover').is_displayed()
+        sleep(0.5)
+        print('CONTACT US is clickable.')
+
+        # check main logo is displayed
+        driver.find_element(By.XPATH, '//span[contains(., "dvantage")]').is_displayed()
+        sleep(0.25)
+        driver.find_element(By.XPATH, '//span[contains(., "DEMO")]').is_displayed()
+        sleep(0.25)
+        print('dvantage and DEMO from logo are displayed. ')
+
+        # check CONTACT US form is working properly.
+        Select(driver.find_element(By.NAME, 'categoryListboxContactUs')).select_by_visible_text('Laptops')
+        sleep(0.25)
+        Select(driver.find_element(By.NAME, 'productListboxContactUs')).select_by_visible_text('HP Chromebook 14 G1(ENERGY STAR)')
+        sleep(0.25)
+        driver.find_element(By.NAME, 'emailContactUs').send_keys(locators.email)
+        sleep(0.25)
+        driver.find_element(By.NAME, 'subjectTextareaContactUs').send_keys(locators.description)
+        sleep(0.25)
+        print(f'{locators.description}')
+        driver.find_element(By.ID, 'send_btnundefined').click()
+        sleep(0.25)
+        driver.find_element(By.XPATH, '//a[contains(., " CONTINUE SHOPPING ")]').is_displayed()
+        sleep(0.25)
+        print('Welcome to continue shopping!  CONTINUE SHOPPING text is displayed.')
+        driver.find_element(By.XPATH, '//a[contains(., " CONTINUE SHOPPING ")]').click()
+        sleep(0.25)
+
 
 def create_new_account():
     if driver.current_url == locators.adshopcart_url:
@@ -141,8 +204,9 @@ def check_delete():
     else:
         print('Something went wrong. Please check your code.')
 
-
+#
 # setUp()
+# check_homepage()
 # create_new_account()
 # register()
 # check_fullname()

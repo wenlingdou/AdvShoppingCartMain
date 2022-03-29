@@ -9,7 +9,7 @@ adshopcart_register_url = 'https://advantageonlineshopping.com/#/register'
 adshopcart_account_url = 'https://advantageonlineshopping.com/#/myAccount'
 adshopcart_orders_url = 'https://advantageonlineshopping.com/#/MyOrders'
 
-username = fake.user_name()
+username = fake.user_name()[0:14]
 email = fake.email()
 password = fake.password()
 confirm_password = password
@@ -22,3 +22,9 @@ city = fake.city()
 address = fake.street_address()
 province = fake.province_abbr()
 postalcode = fake.postalcode()
+description = f'Please send me any promotion about laptop HP Chromebook 14 G1(ENERGY STAR) to {email}. Thank you!'
+
+lst_items = ['SPEAKERS', 'TABLES', 'HEADPHONES', 'LAPTOPS', 'MICE']
+lst_id = ['speakersTxt', 'tabletsTxt','headphonesTxt', 'laptopsTxt', 'miceTxt']
+lst_link = ['SPECIAL OFFER', 'POPULAR ITEMS', 'CONTACT US']
+lst_link_id = ['special_offer_items', 'popular_items', 'supportCover']

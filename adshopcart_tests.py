@@ -7,6 +7,7 @@ class PositiveTestCases(unittest.TestCase):
     @staticmethod   # signal to Unittest that this is a function inside class (vs @classmethod)
     def test_create_new_user():  # test_ in the name is mandatory
         methods.setUp()
+        methods.check_homepage()
         methods.create_new_account()
         methods.register()
         methods.check_fullname()
